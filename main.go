@@ -4,6 +4,7 @@ import (
 	"flag"
 	"os"
 
+	_ "github.com/asim/go-micro/plugins/registry/etcd/v3"
 	"github.com/asim/go-micro/v3/cmd"
 	"github.com/golang/glog"
 )
@@ -15,7 +16,10 @@ func main() {
 	os.Setenv("MICRO_REGISTRY", "etcd")
 	os.Setenv("MICRO_REGISTRY_ADDRESS", "etcd:2379")
 
-	cmd.Init()
+	err := cmd.Init()
+	if err != nil {
+		glog.Fatalf("cmd.Init error:%+v", err)
+	}
 	//cmd.Init(
 	//	micro.Name("wpt.api"),
 	//	micro.Registry(
